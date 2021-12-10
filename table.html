@@ -15,6 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
 
 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+	    
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   	<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -23,7 +24,7 @@
         <!--[if lte IE 8]><script src="assets/css/ie/respond.min.js"></script><![endif]-->
     </head>
     <body>
-        <div id="page-wrapper">
+     <!--   <div id="page-wrapper">
             
             <!-- Header -->
             <header id="header">
@@ -56,9 +57,10 @@
                     </ul>
                 </nav>
             </header>
-            
-            <!-- Main -->
-            <section id="main" class="container">
+  -->          
+<!-- Main -->
+<section id="main" class="container">
+
 <script>
 $(document).ready( function () {
     $('#DAgrid4').DataTable({
@@ -70,7 +72,7 @@ $(document).ready( function () {
 } );
 </script>
 
-<table id="DAgrid4">
+<table id="DAgrid4" class="display">
 <thead>
 <tr><th style="text-align: right;">  Rad-avgd Tgas</th><th style="text-align: right;">  Total mass</th><th style="text-align: right;">  &lt;Molecular Weight&gt;</th><th style="text-align: right;">  Dust/Gas by mass</th><th style="text-align: right;">  EQW CaII 8500</th><th style="text-align: right;">  EQW CaII8544</th><th style="text-align: right;">  EQW CaII8664</th></tr>
 </thead>
@@ -190,9 +192,9 @@ $(document).ready( function () {
                 </ul>
             </footer>
            --> 
-        </div>
+       <!-- </div> -->
         
-        <!-- Scripts -->
+        <!-- Scripts 
 	<!--<script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>-->
 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
         <script src="assets/js/jquery.min.js"></script>
@@ -201,6 +203,6 @@ $(document).ready( function () {
         <script src="assets/js/skel.min.js"></script>
         <script src="assets/js/util.js"></script>
         <script src="assets/js/main.js"></script>
-        
+        -->
     </body>
 </html>
