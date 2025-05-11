@@ -94,7 +94,7 @@
    * color-2(#2F352B)
    * color-3(#1A1A1A)
    */
-    --color-1: hsla(310, 75%, 43%,1); /*12, 75%, 45%, 1);*/
+    --color-1: hsla(194, 75%, 43%); /*310, 75%, 43%,1); 12, 75%, 45%, 1);*/
     --color-2: hsla(96, 10%, 19%, 1);
     --color-3: hsla(0, 0%, 10%, 1);
 
@@ -2895,6 +2895,22 @@ td:last-child {
 .glightbox-mobile .glightbox-container .gslide-desc .desc-more {
     opacity: 1;
 }
+
+
+.glightbox-desc,
+.gslide-desc,          /* the element GLightbox wraps your markup in        */
+.gdesc-inner {         /* an inner helper GLightbox sometimes nests inside */
+    max-height: 50vh;  /* 60 % of the viewport height—tweak as you like    */
+    overflow-y: auto;  /* show a vertical scrollbar when needed            */
+    padding-right: .75rem; /* keeps text from hiding under the scrollbar   */
+}
+
+/* Optional: style the scrollbar so it blends in (Chrome, Edge, Safari) */
+.glightbox-desc::-webkit-scrollbar         { width: 8px;  }
+.glightbox-desc::-webkit-scrollbar-thumb   { background:#aaa; border-radius:4px; }
+.glightbox-desc:hover::-webkit-scrollbar-thumb { background:#777; }
+
+
 
 /* ------------------------------------------------------------------- 
  * responsive:
