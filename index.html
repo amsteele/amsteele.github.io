@@ -492,6 +492,12 @@
       font-size: 1.1rem;
       color: rgba(255,255,255,0.85);
       font-weight: 700;
+
+    .footer-copy {
+      font-size: 0.78rem;
+      opacity: 0.45;
+      margin-top: 0.25rem;
+    }
     }
 
     .footer-links {
@@ -552,9 +558,9 @@
       <div class="nav-links">
         <a href="#research">Research</a>
         <a href="#code-data">Code &amp; Data</a>
-        <a href="#database">Database</a>
+        <a href="https://steele.nimbusno.de/" target="_blank" rel="noreferrer">Database</a>
         <a href="portfolio.html">Design</a>
-        <a href="#cv">CV</a>
+        <a href="pdfs/AmySteele_Resume_Web.pdf" target="_blank" rel="noreferrer">CV</a>
         <a href="#contact">Contact</a>
       </div>
     </div>
@@ -618,7 +624,7 @@
         </div>
         <div class="fact-row">
           <span class="fact-label">CV</span>
-          <span class="fact-value"><a href="#cv">Download PDF ↗</a></span>
+          <span class="fact-value"><a href="pdfs/AmySteele_Resume_Web.pdf" target="_blank" rel="noreferrer">Download PDF ↗</a></span>
         </div>
       </div>
     </div>
@@ -692,11 +698,14 @@
   <!-- FOOTER -->
   <footer class="site-footer" id="contact">
     <div class="container footer-inner">
-      <span class="footer-name">Amy Steele</span>
+      <div>
+        <span class="footer-name">Amy Steele</span>
+        <p class="footer-copy">&copy; <span class="footer-year"></span> Amy Steele</p>
+      </div>
       <nav class="footer-links" aria-label="Footer links">
         <a href="mailto:your.email@example.com">Email</a>
         <a href="#">GitHub</a>
-        <a href="#cv">CV</a>
+        <a href="pdfs/AmySteele_Resume_Web.pdf" target="_blank" rel="noreferrer">CV</a>
         <a href="https://steele.nimbusno.de/" target="_blank" rel="noreferrer">Database</a>
         <a href="https://aste-ya.com/" target="_blank" rel="noreferrer">Shop</a>
       </nav>
@@ -771,6 +780,8 @@
       }
       field.appendChild(fragment);
     })('star-field', 180);
+    // ── Footer year ──────────────────────────────────────
+    document.querySelectorAll(".footer-year").forEach(el => el.textContent = new Date().getFullYear());
   </script>
 </body>
 </html>

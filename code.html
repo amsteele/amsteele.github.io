@@ -465,6 +465,12 @@
       font-size: 1.1rem;
       color: rgba(255,255,255,0.85);
       font-weight: 700;
+
+    .footer-copy {
+      font-size: 0.78rem;
+      opacity: 0.45;
+      margin-top: 0.25rem;
+    }
     }
 
     .footer-links {
@@ -496,14 +502,14 @@
 
   <nav class="site-nav" id="site-nav">
     <div class="container nav-inner">
-      <a class="brand" href="index-v3.html">Amy Steele</a>
+      <a class="brand" href="index.html">Amy Steele</a>
       <div class="nav-links">
         <a href="research.html">Research</a>
         <a href="code.html" class="active">Code &amp; Data</a>
-        <a href="index-v3.html#database">Database</a>
+        <a href="https://steele.nimbusno.de/" target="_blank" rel="noreferrer">Database</a>
         <a href="portfolio.html">Design</a>
-        <a href="index-v3.html#cv">CV</a>
-        <a href="index-v3.html#contact">Contact</a>
+        <a href="pdfs/AmySteele_Resume_Web.pdf" target="_blank" rel="noreferrer">CV</a>
+        <a href="index.html#contact">Contact</a>
       </div>
     </div>
   </nav>
@@ -668,7 +674,7 @@
         </div>
         <div class="callout-ctas">
           <a class="btn btn-gold" href="https://github.com/amsteele" target="_blank" rel="noreferrer">Open GitHub ↗</a>
-          <a class="btn btn-outline" href="index-v3.html">Homepage →</a>
+          <a class="btn btn-outline" href="index.html">Homepage →</a>
         </div>
       </div>
     </div>
@@ -676,12 +682,15 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <span class="footer-name">Amy Steele</span>
+      <div>
+        <span class="footer-name">Amy Steele</span>
+        <p class="footer-copy">&copy; <span class="footer-year"></span> Amy Steele</p>
+      </div>
       <nav class="footer-links">
         <a href="mailto:your.email@example.com">Email</a>
         <a href="https://github.com/amsteele" target="_blank" rel="noreferrer">GitHub</a>
         <a href="https://steele.nimbusno.de/" target="_blank" rel="noreferrer">Database</a>
-        <a href="index-v3.html#contact">Contact</a>
+        <a href="index.html#contact">Contact</a>
       </nav>
     </div>
   </footer>
@@ -729,6 +738,8 @@
       }
       field.appendChild(fragment);
     })('star-field', 180);
+    // ── Footer year ──────────────────────────────────────
+    document.querySelectorAll(".footer-year").forEach(el => el.textContent = new Date().getFullYear());
   </script>
 </body>
 </html>

@@ -4,6 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Design Portfolio | Amy Steele</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/x-icon" href="favicon-as.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-as-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-as-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon-as-180.png" />
   <style>
     :root {
       --green-deep:  #0e1b2a;
@@ -34,10 +41,12 @@
       background: var(--cream);
       color: var(--text);
       line-height: 1.6;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
+    img { max-width: 100%; display: block; pointer-events: none; }
 
     .container {
       width: min(calc(100% - 2.5rem), var(--max-width));
@@ -54,7 +63,7 @@
     }
 
     .site-nav.scrolled {
-      background: rgba(248, 242, 232, 0.9);
+      background: rgba(248, 242, 232, 0.92);
       backdrop-filter: blur(12px);
       border-color: var(--border);
     }
@@ -85,6 +94,7 @@
     }
 
     .site-nav.scrolled .nav-links { color: var(--muted); }
+    .nav-links a { transition: color 0.2s ease; }
     .nav-links a:hover { color: #fff; }
     .site-nav.scrolled .nav-links a:hover { color: var(--text); }
     .nav-links a.active { color: #fff; font-weight: 600; }
@@ -197,6 +207,7 @@
       font-size: 0.92rem;
       border: 1px solid transparent;
       transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      cursor: pointer;
     }
 
     .btn:hover { transform: translateY(-2px); }
@@ -212,53 +223,7 @@
       border-color: rgba(255,255,255,0.45);
     }
 
-    /* ─── FILTER BAR ─── */
-    .filter-bar {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 1rem 0;
-      position: sticky;
-      top: 0;
-      z-index: 40;
-    }
-
-    .filter-inner {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-    }
-
-    .filter-label {
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      margin-right: 0.4rem;
-    }
-
-    .filter-btn {
-      padding: 0.3rem 0.85rem;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: transparent;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--muted);
-      cursor: pointer;
-      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-      font-family: inherit;
-    }
-
-    .filter-btn:hover,
-    .filter-btn.active {
-      background: var(--blue-pale);
-      border-color: var(--blue);
-      color: var(--blue-dark);
-    }
-
-    /* ─── GRID ─── */
+    /* ─── PORTFOLIO SECTION ─── */
     .portfolio-section {
       padding: 4rem 0 6rem;
     }
@@ -285,40 +250,18 @@
       box-shadow: 0 20px 48px rgba(14,27,42,0.15);
     }
 
-    /* Placeholder image area — replace src on <img> when you have files */
     .portfolio-img {
-      aspect-ratio: 2 / 3;
+      aspect-ratio: 1 / 1;
       overflow: hidden;
       position: relative;
+      background: var(--surface-2);
     }
 
-    .portfolio-img img {
+    .portfolio-canvas {
       width: 100%;
       height: 100%;
-      object-fit: cover;
       display: block;
-      transition: transform 0.4s ease;
-    }
-
-    .portfolio-item:hover .portfolio-img img {
-      transform: scale(1.04);
-    }
-
-    /* Gradient placeholder shown when no image is present */
-    .portfolio-img .placeholder {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: flex-end;
-      padding: 1.25rem;
-    }
-
-    .placeholder-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: rgba(255,255,255,0.5);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+      cursor: zoom-in;
     }
 
     .portfolio-info {
@@ -342,6 +285,16 @@
       align-self: flex-start;
     }
 
+    .portfolio-tag.tag-apparel {
+      background: rgba(127,159,122,0.18);
+      color: #3a5e37;
+    }
+
+    .portfolio-tag.tag-education {
+      background: rgba(231,188,110,0.2);
+      color: #7a5c1e;
+    }
+
     .portfolio-info h3 {
       font-family: Georgia, serif;
       font-size: 1.1rem;
@@ -361,9 +314,107 @@
       font-weight: 700;
       color: var(--terracotta);
       align-self: flex-start;
+      transition: color 0.2s ease;
     }
 
     .portfolio-link:hover { text-decoration: underline; }
+
+    /* ─── LIGHTBOX ─── */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(8, 14, 24, 0.94);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+      padding: 2rem;
+    }
+
+    #lightbox.open { display: flex; }
+
+    #lightbox-canvas {
+      max-width: min(100%, 880px);
+      max-height: 88vh;
+      width: auto;
+      height: auto;
+      border-radius: 14px;
+      box-shadow: 0 32px 96px rgba(0,0,0,0.6);
+      display: block;
+    }
+
+    #lightbox-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.5rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+      line-height: 1;
+    }
+
+    #lightbox-close:hover { background: rgba(255,255,255,0.22); }
+
+    /* ─── SHIRT SWITCHER ─── */
+    .shirt-switcher {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .shirt-btn {
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      font-family: inherit;
+    }
+
+    .shirt-btn:hover {
+      background: rgba(127,159,122,0.18);
+      border-color: var(--green-soft);
+      color: #3a5e37;
+    }
+
+    .shirt-btn.active {
+      background: rgba(127,159,122,0.22);
+      border-color: var(--green-soft);
+      color: #3a5e37;
+    }
+
+    .shirt-btn:disabled,
+    .shirt-btn.coming-soon {
+      opacity: 0.4;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    /* ─── COPYRIGHT NOTICE ─── */
+    .copyright-notice {
+      text-align: center;
+      padding: 1.5rem 0 0;
+      font-size: 0.82rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto;
+    }
 
     /* ─── CTA STRIP ─── */
     .cta-strip {
@@ -417,6 +468,12 @@
       font-size: 1.1rem;
       color: rgba(255,255,255,0.85);
       font-weight: 700;
+
+    .footer-copy {
+      font-size: 0.78rem;
+      opacity: 0.45;
+      margin-top: 0.25rem;
+    }
     }
 
     .footer-links {
@@ -438,23 +495,20 @@
       .footer-inner { flex-direction: column; align-items: flex-start; }
     }
   </style>
-  <link rel="icon" type="image/x-icon" href="favicon-as.ico" />
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-as-32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-as-16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon-as-180.png" />
 </head>
 <body>
 
   <!-- NAV -->
   <nav class="site-nav" id="site-nav">
     <div class="container nav-inner">
-      <a class="brand" href="index-v3.html">Amy Steele</a>
+      <a class="brand" href="index.html">Amy Steele</a>
       <div class="nav-links">
-        <a href="index-v3.html#research">Research</a>
-        <a href="index-v3.html#code-data">Code &amp; Data</a>
+        <a href="research.html">Research</a>
+        <a href="code.html">Code &amp; Data</a>
+        <a href="https://steele.nimbusno.de/" target="_blank" rel="noreferrer">Database</a>
         <a href="portfolio.html" class="active">Design</a>
-        <a href="index-v3.html#cv">CV</a>
-        <a href="index-v3.html#contact">Contact</a>
+        <a href="pdfs/AmySteele_Resume_Web.pdf" target="_blank" rel="noreferrer">CV</a>
+        <a href="index.html#contact">Contact</a>
       </div>
     </div>
   </nav>
@@ -463,139 +517,210 @@
   <section class="hero">
     <div class="stars" id="star-field" aria-hidden="true"></div>
     <div class="hero-content">
-      <span class="hero-eyebrow">Print · Poster · Graphic Design</span>
+      <span class="hero-eyebrow">Print · Poster · Apparel · Education</span>
       <h1>Design &amp; Print Work</h1>
       <p>Science-inspired graphics, astronomical posters, and independent print projects.</p>
       <a class="btn btn-outline" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Visit the shop ↗</a>
     </div>
   </section>
 
-  <!-- FILTER BAR -->
-  <div class="filter-bar">
-    <div class="container filter-inner">
-      <span class="filter-label">Filter</span>
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="poster">Posters</button>
-      <button class="filter-btn" data-filter="print">Print</button>
-      <button class="filter-btn" data-filter="illustration">Illustration</button>
-    </div>
-  </div>
-
   <!-- PORTFOLIO GRID -->
   <section class="portfolio-section">
     <div class="container">
+
       <div class="portfolio-grid" id="portfolio-grid">
 
-        <!--
-          TO ADD YOUR OWN IMAGES:
-          Replace the <div class="placeholder" ...> inside each .portfolio-img
-          with: <img src="your-filename.png" alt="Description" />
-          The placeholder gradient will disappear automatically.
-        -->
-
+        <!-- 1: DSA ARTWORK -->
         <article class="portfolio-item" data-category="poster">
           <div class="portfolio-img">
-            <div class="placeholder" style="background: linear-gradient(135deg, #0e1b2a 0%, #1a3a5c 50%, #6b8fa8 100%);">
-              <span class="placeholder-label">Add image</span>
-            </div>
-          </div>
-          <div class="portfolio-info">
-            <span class="portfolio-tag">Poster</span>
-            <h3>Poster Title One</h3>
-            <p>Short description of this piece — theme, inspiration, or technique.</p>
-            <a class="portfolio-link" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Buy print →</a>
-          </div>
-        </article>
-
-        <article class="portfolio-item" data-category="poster">
-          <div class="portfolio-img">
-            <div class="placeholder" style="background: linear-gradient(135deg, #2e4035 0%, #7f9f7a 60%, #e7bc6e 100%);">
-              <span class="placeholder-label">Add image</span>
-            </div>
-          </div>
-          <div class="portfolio-info">
-            <span class="portfolio-tag">Poster</span>
-            <h3>Poster Title Two</h3>
-            <p>Short description of this piece — theme, inspiration, or technique.</p>
-            <a class="portfolio-link" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Buy print →</a>
-          </div>
-        </article>
-
-        <article class="portfolio-item" data-category="illustration">
-          <div class="portfolio-img">
-            <div class="placeholder" style="background: linear-gradient(135deg, #1b1030 0%, #3d2a5a 50%, #d88c74 100%);">
-              <span class="placeholder-label">Add image</span>
-            </div>
+            <canvas class="portfolio-canvas"
+              data-src="images/portfolio/dsa-artwork-crop-1.png"
+              data-lightbox-src="images/portfolio/dsa-artwork_2025_rgb_SCREEN.png"
+              data-watermark="© Amy Steele"></canvas>
           </div>
           <div class="portfolio-info">
             <span class="portfolio-tag">Illustration</span>
-            <h3>Illustration Title</h3>
-            <p>Short description of this piece — theme, inspiration, or technique.</p>
-            <a class="portfolio-link" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Buy print →</a>
+            <h3>Deep Sky Astrology Artwork</h3>
+            <p>Original illustration combining astronomical deep-sky objects with astrological symbolism. Full-color digital artwork produced for the DSA project.</p>
+            <a class="portfolio-link" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Shop prints →</a>
           </div>
         </article>
 
-        <article class="portfolio-item" data-category="print">
-          <div class="portfolio-img">
-            <div class="placeholder" style="background: linear-gradient(135deg, #0e1b2a 0%, #3d6278 50%, #b8cfb4 100%);">
-              <span class="placeholder-label">Add image</span>
-            </div>
-          </div>
-          <div class="portfolio-info">
-            <span class="portfolio-tag">Print</span>
-            <h3>Print Title One</h3>
-            <p>Short description of this piece — theme, inspiration, or technique.</p>
-            <a class="portfolio-link" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Buy print →</a>
-          </div>
-        </article>
-
+        <!-- 2: STAR TRAIN POSTER -->
         <article class="portfolio-item" data-category="poster">
           <div class="portfolio-img">
-            <div class="placeholder" style="background: linear-gradient(135deg, #2a1a0e 0%, #78421e 50%, #e7bc6e 100%);">
-              <span class="placeholder-label">Add image</span>
-            </div>
+            <canvas class="portfolio-canvas"
+              data-src="images/portfolio/Artboard 1.png"
+              data-watermark="© Amy Steele"></canvas>
           </div>
           <div class="portfolio-info">
             <span class="portfolio-tag">Poster</span>
-            <h3>Poster Title Three</h3>
-            <p>Short description of this piece — theme, inspiration, or technique.</p>
-            <a class="portfolio-link" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Buy print →</a>
+            <h3>Star Train</h3>
+            <p>A typographic and illustrative poster exploring the journey through stellar spectral types — from hot blue O-stars to the cool red embers of M-dwarfs.</p>
+            <a class="portfolio-link" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Shop prints →</a>
           </div>
         </article>
 
-        <article class="portfolio-item" data-category="illustration">
+        <!-- 3: DSA EDUCATIONAL MATERIALS -->
+        <article class="portfolio-item" data-category="education">
           <div class="portfolio-img">
-            <div class="placeholder" style="background: linear-gradient(135deg, #0a1a18 0%, #1e4a42 55%, #7f9f7a 100%);">
-              <span class="placeholder-label">Add image</span>
-            </div>
+            <canvas class="portfolio-canvas" id="edu-canvas"
+              data-src="images/portfolio/dsa-coloring-1.png"
+              data-anchor="top"
+              data-watermark="© Amy Steele"></canvas>
           </div>
           <div class="portfolio-info">
-            <span class="portfolio-tag">Illustration</span>
-            <h3>Illustration Title Two</h3>
-            <p>Short description of this piece — theme, inspiration, or technique.</p>
-            <a class="portfolio-link" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Buy print →</a>
+            <span class="portfolio-tag tag-education">Education</span>
+            <h3>DSA Coloring Sheets — p. 1</h3>
+            <p>Coloring sheets and a star wheel designed to make astronomical concepts approachable and tactile. Made for classrooms, outreach events, and curious people of all ages.</p>
+            <div class="shirt-switcher">
+              <button class="shirt-btn active"
+                data-canvas="edu-canvas"
+                data-src="images/portfolio/dsa-coloring-1.png"
+                data-title="DSA Coloring Sheets — p. 1"
+                data-desc="Coloring sheets and a star wheel designed to make astronomical concepts approachable and tactile. Made for classrooms, outreach events, and curious people of all ages.">p. 1</button>
+              <button class="shirt-btn"
+                data-canvas="edu-canvas"
+                data-src="images/portfolio/dsa-coloring-2.png"
+                data-title="DSA Coloring Sheets — p. 2"
+                data-desc="Page 2 of the DSA coloring sheets — more deep-sky objects to explore, color, and learn from.">p. 2</button>
+              <button class="shirt-btn"
+                data-canvas="edu-canvas"
+                data-src="images/portfolio/dsa-coloring-3.png"
+                data-title="DSA Coloring Sheets — p. 3"
+                data-desc="Page 3 of the DSA coloring sheets — the final spread of astronomical illustrations ready to be brought to life with color.">p. 3</button>
+              <button class="shirt-btn"
+                data-canvas="edu-canvas"
+                data-src="images/portfolio/dsa_starwheel_preview.png"
+                data-title="DSA Star Wheel"
+                data-desc="A printable star wheel for finding constellations. Spin the dial to match any date and time of year — your own personal window into the night sky.">Star Wheel</button>
+            </div>
+            <a class="portfolio-link" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Shop educational →</a>
+          </div>
+        </article>
+
+        <!-- 4: ARTEMIS II SHIRT -->
+        <article class="portfolio-item" data-category="apparel">
+          <div class="portfolio-img">
+            <canvas class="portfolio-canvas" id="artemis-canvas"
+              data-src="images/portfolio/artemis-classic-tee-white-front-69eb047b059c1.png"
+              data-watermark="© Amy Steele"></canvas>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-tag tag-apparel">Apparel</span>
+            <h3>Artemis II Tee — Front</h3>
+            <p>Unisex classic tee in white. Designed in support of the Artemis II mission — the first crewed lunar flyby in over fifty years.</p>
+            <div class="shirt-switcher">
+              <button class="shirt-btn active"
+                data-canvas="artemis-canvas"
+                data-src="images/portfolio/artemis-classic-tee-white-front-69eb047b059c1.png"
+                data-title="Artemis II Tee — Front"
+                data-desc="Unisex classic tee in white. Designed in support of the Artemis II mission — the first crewed lunar flyby in over fifty years.">Front</button>
+              <button class="shirt-btn"
+                data-canvas="artemis-canvas"
+                data-src="images/portfolio/artemis-classic-tee-white-back-69eb047b052a2.png"
+                data-title="Artemis II Tee — Back"
+                data-desc="The back of the Artemis II tee. A clean, minimal reverse to let the front design do the talking.">Back</button>
+              <button class="shirt-btn"
+                data-canvas="artemis-canvas"
+                data-src="images/portfolio/artemis-classic-tee-white-front-and-back-69eb047b05ead.png"
+                data-title="Artemis II Tee — Front &amp; Back"
+                data-desc="Both sides of the Artemis II tee — a unisex classic in white showing the full design inside and out.">Front &amp; Back</button>
+            </div>
+            <a class="portfolio-link" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Shop apparel →</a>
+          </div>
+        </article>
+
+        <!-- 5: SHIRT COLLECTION (SWITCHER) -->
+        <article class="portfolio-item" data-category="apparel">
+          <div class="portfolio-img">
+            <canvas class="portfolio-canvas" id="shirt-canvas"
+              data-src="images/portfolio/comet-garment-dyed-heavyweight-t-shirt-blue-spruce-front-69eb05054b4ca.png"
+              data-watermark="© Amy Steele"></canvas>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-tag tag-apparel">Apparel</span>
+            <h3>Comet Tee — Blue Spruce</h3>
+            <p>Garment-dyed heavyweight tees with original science-inspired graphics. Each design lives comfortably in the space between nerdy and wearable.</p>
+            <div class="shirt-switcher">
+              <button class="shirt-btn active"
+                data-canvas="shirt-canvas"
+                data-src="images/portfolio/comet-garment-dyed-heavyweight-t-shirt-blue-spruce-front-69eb05054b4ca.png"
+                data-title="Comet Tee — Blue Spruce"
+                data-desc="Garment-dyed heavyweight tee in blue spruce. The comet design celebrates our solar system's most dramatic visitors.">Comet</button>
+              <button class="shirt-btn"
+                data-canvas="shirt-canvas"
+                data-src="images/portfolio/pulsar-garment-dyed-heavyweight-t-shirt-true-navy-front-69eb054dde4a9.png"
+                data-title="Pulsar Tee — True Navy"
+                data-desc="Garment-dyed heavyweight tee in true navy. The pulsar design honors the rotating neutron stars that pulse like cosmic lighthouses.">Pulsar</button>
+              <button class="shirt-btn"
+                data-canvas="shirt-canvas"
+                data-src="images/portfolio/exoplanet-classic-tee-forest-green-front-69eb05b54bbf8.png"
+                data-title="Exoplanet Tee — Forest Green"
+                data-desc="Classic tee in forest green. The exoplanet design captures the wonder of worlds orbiting distant stars.">Exoplanet</button>
+            </div>
+            <a class="portfolio-link" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Shop apparel →</a>
+          </div>
+        </article>
+
+        <!-- 6: FRONT (CONSTELLATIONS) SHIRT -->
+        <article class="portfolio-item" data-category="apparel">
+          <div class="portfolio-img">
+            <canvas class="portfolio-canvas" id="front-canvas"
+              data-src="images/portfolio/Front, Faded Cream.png"
+              data-watermark="© Amy Steele"></canvas>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-tag tag-apparel">Apparel</span>
+            <h3>Front — Faded Cream</h3>
+            <p>A softer take — vintage faded cream colorway on a relaxed, worn-in tee. Original science-inspired graphic sits comfortably in the space between nerdy and wearable.</p>
+            <div class="shirt-switcher">
+              <button class="shirt-btn active"
+                data-canvas="front-canvas"
+                data-src="images/portfolio/Front, Faded Cream.png"
+                data-title="Front — Faded Cream"
+                data-desc="Vintage faded cream colorway. A softer take on the constellation design — worn-in feel with a light, airy finish.">Faded Cream</button>
+              <button class="shirt-btn"
+                data-canvas="front-canvas"
+                data-src="images/portfolio/Front, Faded Navy.png"
+                data-title="Front — Faded Navy"
+                data-desc="Vintage faded navy colorway. Deep and understated — the constellation design pops against the darker, worn-in ground.">Faded Navy</button>
+            </div>
+            <a class="portfolio-link" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Shop apparel →</a>
           </div>
         </article>
 
       </div>
+
+      <p class="copyright-notice">All artwork and designs © Amy Steele. Unauthorized reproduction, distribution, or commercial use is strictly prohibited.</p>
+
     </div>
   </section>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" aria-modal="true" role="dialog" aria-label="Full-size image view">
+    <button id="lightbox-close" aria-label="Close">✕</button>
+    <canvas id="lightbox-canvas"></canvas>
+  </div>
 
   <!-- SHOP CTA -->
   <div class="cta-strip">
     <h2>See everything in the shop</h2>
-    <p>All prints and posters are available to order at aste-ya.com.</p>
+    <p>All prints, posters, and apparel are available to order at aste-ya.com.</p>
     <a class="btn btn-gold" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Visit aste-ya.com ↗</a>
   </div>
 
   <!-- FOOTER -->
   <footer class="site-footer">
     <div class="container footer-inner">
-      <span class="footer-name">Amy Steele</span>
+      <div>
+        <span class="footer-name">Amy Steele</span>
+        <p class="footer-copy">&copy; <span class="footer-year"></span> Amy Steele</p>
+      </div>
       <nav class="footer-links">
-        <a href="mailto:your.email@example.com">Email</a>
-        <a href="#">GitHub</a>
-        <a href="index-v3.html#cv">CV</a>
+        <a href="mailto:SNrefsdal@proton.me">Email</a>
+        <a href="https://github.com/amsteele" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="pdfs/AmySteele_Resume_Web.pdf" target="_blank" rel="noreferrer">CV</a>
         <a href="https://steele.nimbusno.de/" target="_blank" rel="noreferrer">Database</a>
         <a href="https://aste-ya.com/" target="_blank" rel="noreferrer">Shop</a>
       </nav>
@@ -603,46 +728,37 @@
   </footer>
 
   <script>
-    // Nav scroll transition
+    // ── Nav scroll transition ─────────────────────────────
     const nav = document.getElementById('site-nav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 60);
     }, { passive: true });
 
-    // ── Procedural star field ──────────────────────────
+    // ── Procedural star field ─────────────────────────────
     (function buildStars(containerId, count) {
       const field = document.getElementById(containerId);
       if (!field) return;
 
       const palette = [
-        '170,195,255',
-        '200,218,255',
-        '220,232,255',
-        '245,248,255',
-        '255,255,255',
-        '255,255,255',
-        '255,255,255',
-        '255,252,228',
-        '255,244,190',
-        '255,225,130',
-        '255,195,90',
-        '255,160,70',
+        '170,195,255', '200,218,255', '220,232,255', '245,248,255',
+        '255,255,255',  '255,255,255',  '255,255,255',
+        '255,252,228',  '255,244,190',  '255,225,130',
+        '255,195,90',   '255,160,70',
       ];
 
       const fragment = document.createDocumentFragment();
 
       for (let i = 0; i < count; i++) {
-        const el = document.createElement('div');
-        el.className = 'star';
-
+        const el        = document.createElement('div');
+        el.className    = 'star';
         const size      = Math.random() * 0.87 + 0.17;
         const rgb       = palette[Math.floor(Math.random() * palette.length)];
         const isFlare   = Math.random() < 0.07;
         const isBright  = size > 0.55 || Math.random() < 0.25;
         const peakScale = isBright ? (1.8 + Math.random() * 2.4).toFixed(1) : '1.1';
         const glowR     = isBright ? `${(0.5 + Math.random() * 1.5).toFixed(1)}px` : '0px';
-        const glowS     = isBright ? `${(Math.random() * 0.5).toFixed(1)}px`      : '0px';
-        const glowOp    = isBright ? (0.4 + Math.random() * 0.5).toFixed(2)       : '0';
+        const glowS     = isBright ? `${(Math.random() * 0.5).toFixed(1)}px` : '0px';
+        const glowOp    = isBright ? (0.4 + Math.random() * 0.5).toFixed(2) : '0';
 
         el.style.cssText = [
           `width:${size}px`,
@@ -669,21 +785,170 @@
       field.appendChild(fragment);
     })('star-field', 180);
 
-    // Filter buttons
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const items = document.querySelectorAll('.portfolio-item');
+    // ── Canvas image protection ───────────────────────────
+    // Draws src into canvas using object-fit:cover behavior (center-crop to fill).
+    // Card canvases render at CARD_SIZE × CARD_SIZE; lightbox draws at full resolution.
+    const CARD_SIZE = 900;
 
-    filterBtns.forEach(btn => {
+    function drawProtected(canvas, src) {
+      const isLightbox = canvas.id === 'lightbox-canvas';
+      const img = new Image();
+      img.onload = function () {
+        const natW = img.naturalWidth;
+        const natH = img.naturalHeight;
+
+        // Canvas internal resolution
+        const cW = isLightbox ? natW : CARD_SIZE;
+        const cH = isLightbox ? natH : CARD_SIZE;
+        canvas.width  = cW;
+        canvas.height = cH;
+        const ctx = canvas.getContext('2d');
+
+        // object-fit: cover — scale to fill, crop excess
+        // data-anchor="top" pins to top edge; default is center
+        const scale  = Math.max(cW / natW, cH / natH);
+        const sw     = cW / scale;
+        const sh     = cH / scale;
+        const sx     = (natW - sw) / 2;
+        const anchor = canvas.dataset.anchor || 'center';
+        const sy     = anchor === 'top' ? 0 : (natH - sh) / 2;
+        ctx.drawImage(img, sx, sy, sw, sh, 0, 0, cW, cH);
+
+        // Repeating diagonal watermark
+        ctx.save();
+        const fontSize = Math.max(11, Math.round(cW * 0.024));
+        ctx.font = `italic ${fontSize}px Georgia, serif`;
+        ctx.globalAlpha = 0.09;
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.translate(cW / 2, cH / 2);
+        ctx.rotate(-Math.PI / 6);
+        const text = '© Amy Steele';
+        const tw = ctx.measureText(text).width;
+        const spacingX = tw * 2.8;
+        const spacingY = fontSize * 4;
+        const cols = Math.ceil((Math.max(cW, cH) * 1.5) / spacingX) + 2;
+        const rows = Math.ceil((Math.max(cW, cH) * 1.5) / spacingY) + 2;
+        for (let r = -rows; r <= rows; r++) {
+          for (let c = -cols; c <= cols; c++) {
+            ctx.fillText(text, c * spacingX, r * spacingY);
+          }
+        }
+        ctx.restore();
+
+        // Corner copyright badge
+        ctx.save();
+        const badgeFontSize = Math.max(9, Math.round(cW * 0.020));
+        const badgeText = '© Amy Steele';
+        ctx.font = `600 ${badgeFontSize}px Inter, Arial, sans-serif`;
+        ctx.textBaseline = 'middle';
+        const tw2 = ctx.measureText(badgeText).width;
+        const bPad = badgeFontSize * 0.65;
+        const bW   = tw2 + bPad * 2;
+        const bH   = badgeFontSize * 2;
+        const bX   = cW - bW - badgeFontSize * 0.5;
+        const bY   = cH - bH - badgeFontSize * 0.5;
+        ctx.globalAlpha = 0.52;
+        ctx.fillStyle = 'rgba(10,20,32,0.65)';
+        ctx.beginPath();
+        const br = bH * 0.35;
+        ctx.moveTo(bX + br, bY);
+        ctx.lineTo(bX + bW - br, bY);
+        ctx.quadraticCurveTo(bX + bW, bY, bX + bW, bY + br);
+        ctx.lineTo(bX + bW, bY + bH - br);
+        ctx.quadraticCurveTo(bX + bW, bY + bH, bX + bW - br, bY + bH);
+        ctx.lineTo(bX + br, bY + bH);
+        ctx.quadraticCurveTo(bX, bY + bH, bX, bY + bH - br);
+        ctx.lineTo(bX, bY + br);
+        ctx.quadraticCurveTo(bX, bY, bX + br, bY);
+        ctx.closePath();
+        ctx.fill();
+        ctx.globalAlpha = 0.88;
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
+        ctx.fillText(badgeText, bX + bW / 2, bY + bH / 2);
+        ctx.restore();
+      };
+      img.src = src;
+    }
+
+    // Initialize all canvas images
+    document.querySelectorAll('canvas[data-src]').forEach(canvas => {
+      drawProtected(canvas, canvas.dataset.src);
+    });
+
+    // ── Shirt switcher ────────────────────────────────────
+    document.querySelectorAll('.shirt-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
+        const canvasId = btn.dataset.canvas;
+        const canvas   = document.getElementById(canvasId);
+        if (!canvas || !btn.dataset.src) return;
+
+        // Update button state
+        btn.closest('.shirt-switcher').querySelectorAll('.shirt-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        const filter = btn.dataset.filter;
-        items.forEach(item => {
-          const show = filter === 'all' || item.dataset.category === filter;
-          item.style.display = show ? '' : 'none';
-        });
+
+        // Update canvas and its data-src so lightbox follows the current design
+        canvas.dataset.src = btn.dataset.src;
+        drawProtected(canvas, btn.dataset.src);
+
+        // Update title + description within this card
+        const card    = btn.closest('.portfolio-item');
+        const titleEl = card && card.querySelector('h3');
+        const descEl  = card && card.querySelector('p');
+        if (titleEl && btn.dataset.title) titleEl.textContent = btn.dataset.title;
+        if (descEl  && btn.dataset.desc)  descEl.textContent  = btn.dataset.desc;
       });
     });
+
+    // ── Lightbox ──────────────────────────────────────────
+    const lightbox       = document.getElementById('lightbox');
+    const lightboxCanvas = document.getElementById('lightbox-canvas');
+
+    function openLightbox(src) {
+      // Draw at full natural resolution with watermark
+      drawProtected(lightboxCanvas, src);
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox || e.target === document.getElementById('lightbox-close')) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    lightboxCanvas.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
+
+    // Attach click-to-expand to all portfolio canvases
+    document.querySelectorAll('.portfolio-canvas:not(#lightbox-canvas)').forEach(canvas => {
+      canvas.addEventListener('click', () => {
+        const src = canvas.dataset.lightboxSrc || canvas.dataset.src;
+        if (src) openLightbox(src);
+      });
+    });
+
+    // ── Image theft prevention ────────────────────────────
+    const grid = document.getElementById('portfolio-grid');
+    grid.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
+    grid.addEventListener('dragstart',   e => { e.preventDefault(); return false; });
+
+    // Also block at document level for canvas elements
+    document.addEventListener('contextmenu', e => {
+      if (e.target.tagName === 'CANVAS') { e.preventDefault(); return false; }
+    });
+    // ── Footer year ──────────────────────────────────────
+    document.querySelectorAll(".footer-year").forEach(el => el.textContent = new Date().getFullYear());
   </script>
 </body>
 </html>
