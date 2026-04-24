@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Code & Data | Amy Steele</title>
+  <style>
+    :root {
+      --green-deep:  #0e1b2a;
+      --green-mid:   #1a2e3a;
+      --green-soft:  #7f9f7a;
+      --green-light: #b8cfb4;
+      --blue:        #6b8fa8;
+      --blue-dark:   #3d6278;
+      --blue-pale:   #ddeaf3;
+      --cream:       #f8f2e8;
+      --surface:     #fffaf3;
+      --surface-2:   #f3eadc;
+      --text:        #2f3a33;
+      --muted:       #5e6a62;
+      --terracotta:  #d88c74;
+      --gold:        #e7bc6e;
+      --border:      #e8dcc9;
+      --shadow:      0 12px 36px rgba(14, 27, 42, 0.12);
+      --radius-lg:   24px;
+      --radius-md:   14px;
+      --max-width:   1100px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(calc(100% - 2.5rem), var(--max-width));
+      margin: 0 auto;
+    }
+
+    h1, h2, h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.15;
+    }
+
+    /* ─── NAV ─── */
+    .site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      transition: background 0.3s ease, border-color 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    .site-nav.scrolled {
+      background: rgba(248, 242, 232, 0.9);
+      backdrop-filter: blur(12px);
+      border-color: var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 0;
+    }
+
+    .brand {
+      font-family: Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.02em;
+      transition: color 0.3s ease;
+    }
+
+    .site-nav.scrolled .brand { color: var(--text); }
+
+    .nav-links {
+      display: flex;
+      gap: 1.4rem;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .site-nav.scrolled .nav-links { color: var(--muted); }
+    .nav-links a:hover { color: #fff; }
+    .site-nav.scrolled .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: #fff; font-weight: 600; }
+    .site-nav.scrolled .nav-links a.active { color: var(--text); }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      background: var(--green-deep);
+      overflow: hidden;
+      padding: 9rem 1.5rem 5rem;
+      text-align: center;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 25% 50%, rgba(107,143,168,0.2), transparent 60%),
+        radial-gradient(ellipse 50% 50% at 80% 30%, rgba(231,188,110,0.08), transparent 55%);
+      pointer-events: none;
+    }
+
+    .stars { position: absolute; inset: 0; pointer-events: none; }
+
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      animation-name: twinkle;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      animation-duration: var(--dur, 4s);
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes twinkle {
+      0%, 100% {
+        opacity: var(--min-op, 0.03);
+        transform: scale(1);
+        box-shadow: none;
+      }
+      50% {
+        opacity: var(--max-op, 1);
+        transform: scale(var(--peak-scale, 1));
+        box-shadow: 0 0 var(--glow-r, 0px) var(--glow-s, 0px) rgba(var(--rgb), var(--glow-op, 0));
+      }
+    }
+
+    @keyframes flare {
+      0%, 78%, 100% {
+        opacity: var(--min-op, 0.02);
+        transform: scale(1);
+        box-shadow: none;
+      }
+      83% {
+        opacity: 1;
+        transform: scale(var(--peak-scale, 4));
+        box-shadow: 0 0 8px 3px rgba(var(--rgb), 0.75);
+      }
+      90% {
+        opacity: 0.08;
+        transform: scale(1);
+        box-shadow: none;
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      margin-bottom: 1.2rem;
+      padding: 0.3rem 0.85rem;
+      border: 1px solid rgba(107,143,168,0.5);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(180,210,230,0.85);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      color: rgba(255,255,255,0.58);
+      font-size: 1.05rem;
+      max-width: 520px;
+      margin: 0 auto 2rem;
+    }
+
+    .hero-ctas {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.65rem 1.3rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      border: 1px solid transparent;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: var(--green-soft);
+      color: #fff;
+      border-color: var(--green-soft);
+    }
+
+    .btn-primary:hover { background: #6d8e68; }
+
+    .btn-outline {
+      background: transparent;
+      color: rgba(255,255,255,0.85);
+      border-color: rgba(255,255,255,0.25);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.5);
+    }
+
+    /* ─── STATS BAR ─── */
+    .stats-bar {
+      background: var(--green-deep);
+      padding: 2.5rem 0;
+    }
+
+    .stats-inner {
+      display: flex;
+      justify-content: space-around;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+    }
+
+    .stat-desc {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.45);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.3rem;
+      display: block;
+      max-width: 12rem;
+    }
+
+    /* ─── BODY SECTIONS ─── */
+    .page-section {
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-section:last-of-type { border-bottom: none; }
+
+    .section-header {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.9rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      max-width: 52ch;
+      font-size: 0.97rem;
+    }
+
+    /* Project cards */
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .project-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .project-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .project-type {
+      display: inline-block;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+      background: var(--blue-pale);
+      color: var(--blue-dark);
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .project-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      flex-grow: 1;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      padding: 0.2rem 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      background: rgba(255,255,255,0.5);
+    }
+
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: auto;
+      padding-top: 0.25rem;
+    }
+
+    .project-links a {
+      color: var(--terracotta);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .project-links a:hover { text-decoration: underline; }
+
+    /* Skills split */
+    .split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+    }
+
+    .skill-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .skill-card ul {
+      padding-left: 1.1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .skill-card li + li { margin-top: 0.5rem; }
+
+    /* GitHub callout */
+    .callout-card {
+      background: var(--green-deep);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      color: rgba(255,255,255,0.65);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .callout-card h2 {
+      font-family: Georgia, serif;
+      font-size: 1.6rem;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+
+    .callout-card p {
+      max-width: 52ch;
+      font-size: 0.97rem;
+    }
+
+    .callout-ctas {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: var(--green-deep);
+      border-color: var(--gold);
+      font-weight: 700;
+      justify-content: center;
+    }
+
+    .btn-gold:hover { background: #d4a850; }
+
+    .text-link {
+      color: var(--terracotta);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .text-link:hover { text-decoration: underline; }
+
+    /* ─── FOOTER ─── */
+    .site-footer {
+      background: var(--green-mid);
+      color: rgba(255,255,255,0.55);
+      padding: 3rem 0;
+      font-size: 0.9rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-name {
+      font-family: Georgia, serif;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.85);
+      font-weight: 700;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a { color: rgba(255,255,255,0.5); transition: color 0.2s; }
+    .footer-links a:hover { color: rgba(255,255,255,0.9); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 860px) {
+      .project-grid, .split-grid { grid-template-columns: 1fr; }
+      .callout-card { grid-template-columns: 1fr; }
+      .callout-ctas { flex-direction: row; }
+    }
+
+    @media (max-width: 560px) {
+      .nav-links { display: none; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav" id="site-nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index-v3.html">Amy Steele</a>
+      <div class="nav-links">
+        <a href="research.html">Research</a>
+        <a href="code.html" class="active">Code &amp; Data</a>
+        <a href="index-v3.html#database">Database</a>
+        <a href="portfolio.html">Design</a>
+        <a href="index-v3.html#cv">CV</a>
+        <a href="index-v3.html#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="stars" id="star-field" aria-hidden="true"></div>
+    <div class="hero-content">
+      <span class="hero-eyebrow">Code &amp; Data</span>
+      <h1>Computational tools for scientific questions</h1>
+      <p>Python workflows, reproducible analysis, and public-facing data tools built around real observational problems</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="https://github.com/amsteele" target="_blank" rel="noreferrer">View GitHub</a>
+        <a class="btn btn-outline" href="https://steele.nimbusno.de/" target="_blank" rel="noreferrer">Visit Database</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar" aria-label="Technical highlights">
+    <div class="container stats-inner">
+      <div class="stat">
+        <span class="stat-num">Python</span>
+        <span class="stat-desc">Pipelines, analysis, and visualization for scientific data</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">SQL + Web</span>
+        <span class="stat-desc">Structured searchable tools and browser-based interfaces</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">Research-grade</span>
+        <span class="stat-desc">Built from observational and modeling workflows, not toy examples</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">Public-facing</span>
+        <span class="stat-desc">Projects designed to be explored, searched, and reused</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <section class="page-section" id="projects">
+    <div class="container">
+      <div class="section-header">
+        <h2>Selected projects</h2>
+        <p>Orbital analysis, photometry, geospatial comparison, and searchable scientific data — each showing a different part of the work.</p>
+      </div>
+      <div class="project-grid">
+
+        <article class="project-card">
+          <div class="project-top">
+            <h3>Satellite Conjunction Risk Analysis</h3>
+            <span class="project-type">Analysis Pipeline</span>
+          </div>
+          <p>A reproducible pipeline for quantifying and visualizing the risk of close satellite approaches in low Earth orbit using public orbital data. Framed around ~10,000 satellites, focused on extracting operationally meaningful summaries from large trajectory sets.</p>
+          <div class="tag-list">
+            <span class="tag">Python</span>
+            <span class="tag">Jupyter</span>
+            <span class="tag">Orbital data</span>
+            <span class="tag">Reproducibility</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/amsteele/satellite-conjunction-risk" target="_blank" rel="noreferrer">GitHub repository →</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <h3>Relative Photometry Pipeline</h3>
+            <span class="project-type">Astronomy Workflow</span>
+          </div>
+          <p>A modular Python pipeline for extracting relative photometric light curves from ground-based CCD time-series observations, including calibration, image alignment, WCS-based source localization, aperture photometry, and light-curve output.</p>
+          <div class="tag-list">
+            <span class="tag">Python</span>
+            <span class="tag">Astropy</span>
+            <span class="tag">Photutils</span>
+            <span class="tag">Time-domain astronomy</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/amsteele/relative-photometry-pipeline" target="_blank" rel="noreferrer">GitHub repository →</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <h3>Nevada Dark Sky Comparison</h3>
+            <span class="project-type">Data App</span>
+          </div>
+          <p>Compares ground-based sky brightness measurements from a Unihedron SQM-L device against NASA VIIRS Black Marble nighttime radiance data. Interpolates field measurements, maps local variation, and compares on-the-ground darkness to satellite-derived pixels.</p>
+          <div class="tag-list">
+            <span class="tag">Python</span>
+            <span class="tag">Geospatial analysis</span>
+            <span class="tag">NASA data</span>
+            <span class="tag">Streamlit</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/amsteele/dark_sky_nevada" target="_blank" rel="noreferrer">GitHub repository →</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <h3>Polluted White Dwarf Database</h3>
+            <span class="project-type">Searchable Tool</span>
+          </div>
+          <p>A browser-based searchable resource for exploring model parameters related to pollution around white dwarfs. Exposes scientific model choices through a structured interface so users can query and inspect results directly.</p>
+          <div class="tag-list">
+            <span class="tag">Scientific database</span>
+            <span class="tag">Search interface</span>
+            <span class="tag">Astronomy models</span>
+            <span class="tag">Web application</span>
+          </div>
+          <div class="project-links">
+            <a href="https://steele.nimbusno.de/" target="_blank" rel="noreferrer">Live database →</a>
+            <a href="research.html">Research overview →</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="page-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Approach and strengths</h2>
+        <p>The most useful pattern in my work is translating research logic into maintainable code and interfaces that others can actually use.</p>
+      </div>
+      <div class="split-grid">
+        <div class="skill-card">
+          <h3>What I build</h3>
+          <ul>
+            <li>Reproducible scientific analysis pipelines</li>
+            <li>Data processing workflows for observational datasets</li>
+            <li>Structured search tools and research databases</li>
+            <li>Visualizations and outputs designed for interpretation, not just computation</li>
+            <li>Projects that connect domain knowledge with practical implementation</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <h3>Technical focus</h3>
+          <ul>
+            <li>Python for scientific programming and automation</li>
+            <li>Astropy, photutils, plotting, and notebook-based exploration</li>
+            <li>Data organization for parameter sweeps and model results</li>
+            <li>SQL-backed or web-facing ways of making results searchable</li>
+            <li>Interfaces that keep technical work accessible to non-specialists</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GITHUB CALLOUT -->
+  <section class="page-section">
+    <div class="container">
+      <div class="callout-card">
+        <div>
+          <h2>GitHub profile</h2>
+          <p>My GitHub includes repositories for satellite conjunction analysis, time-domain photometry, dark sky comparison work, Stellarium scripts for night-sky demonstrations, and the site itself. It is the best place to see the current shape of my technical work and how I organize projects.</p>
+        </div>
+        <div class="callout-ctas">
+          <a class="btn btn-gold" href="https://github.com/amsteele" target="_blank" rel="noreferrer">Open GitHub ↗</a>
+          <a class="btn btn-outline" href="index-v3.html">Homepage →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span class="footer-name">Amy Steele</span>
+      <nav class="footer-links">
+        <a href="mailto:your.email@example.com">Email</a>
+        <a href="https://github.com/amsteele" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https://steele.nimbusno.de/" target="_blank" rel="noreferrer">Database</a>
+        <a href="index-v3.html#contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('site-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    (function buildStars(containerId, count) {
+      const field = document.getElementById(containerId);
+      if (!field) return;
+      const palette = [
+        '170,195,255','200,218,255','220,232,255','245,248,255',
+        '255,255,255','255,255,255','255,255,255',
+        '255,252,228','255,244,190','255,225,130','255,195,90','255,160,70',
+      ];
+      const fragment = document.createDocumentFragment();
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('div');
+        el.className = 'star';
+        const size      = Math.random() * 0.87 + 0.17;
+        const rgb       = palette[Math.floor(Math.random() * palette.length)];
+        const isFlare   = Math.random() < 0.07;
+        const isBright  = size > 0.55 || Math.random() < 0.25;
+        const peakScale = isBright ? (1.8 + Math.random() * 2.4).toFixed(1) : '1.1';
+        const glowR     = isBright ? `${(0.5 + Math.random() * 1.5).toFixed(1)}px` : '0px';
+        const glowS     = isBright ? `${(Math.random() * 0.5).toFixed(1)}px`       : '0px';
+        const glowOp    = isBright ? (0.4 + Math.random() * 0.5).toFixed(2)        : '0';
+        el.style.cssText = [
+          `width:${size}px`, `height:${size}px`,
+          `top:${(Math.random()*100).toFixed(2)}%`,
+          `left:${(Math.random()*100).toFixed(2)}%`,
+          `background:rgb(${rgb})`, `--rgb:${rgb}`,
+          `animation-name:${isFlare ? 'flare' : 'twinkle'}`,
+          `--dur:${isFlare ? (22+Math.random()*26).toFixed(1) : (4.0+Math.random()*9.0).toFixed(1)}s`,
+          `--delay:-${(Math.random()*12).toFixed(1)}s`,
+          `--min-op:${(Math.random()*0.04+0.01).toFixed(2)}`,
+          `--max-op:${(Math.random()*0.2+0.80).toFixed(2)}`,
+          `--peak-scale:${peakScale}`,
+          `--glow-r:${glowR}`, `--glow-s:${glowS}`, `--glow-op:${glowOp}`,
+        ].join(';');
+        fragment.appendChild(el);
+      }
+      field.appendChild(fragment);
+    })('star-field', 180);
+  </script>
+</body>
+</html>

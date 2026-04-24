@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design Portfolio | Amy Steele</title>
+  <style>
+    :root {
+      --green-deep:  #0e1b2a;
+      --green-mid:   #1a2e3a;
+      --green-soft:  #7f9f7a;
+      --blue:        #6b8fa8;
+      --blue-dark:   #3d6278;
+      --blue-pale:   #ddeaf3;
+      --cream:       #f8f2e8;
+      --surface:     #fffaf3;
+      --surface-2:   #f3eadc;
+      --text:        #2f3a33;
+      --muted:       #5e6a62;
+      --terracotta:  #d88c74;
+      --gold:        #e7bc6e;
+      --border:      #e8dcc9;
+      --shadow:      0 12px 36px rgba(14, 27, 42, 0.12);
+      --radius-lg:   24px;
+      --radius-md:   14px;
+      --max-width:   1100px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(calc(100% - 2.5rem), var(--max-width));
+      margin: 0 auto;
+    }
+
+    /* ─── NAV ─── */
+    .site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      transition: background 0.3s ease, border-color 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    .site-nav.scrolled {
+      background: rgba(248, 242, 232, 0.9);
+      backdrop-filter: blur(12px);
+      border-color: var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 0;
+    }
+
+    .brand {
+      font-family: Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.02em;
+      transition: color 0.3s ease;
+    }
+
+    .site-nav.scrolled .brand { color: var(--text); }
+
+    .nav-links {
+      display: flex;
+      gap: 1.4rem;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .site-nav.scrolled .nav-links { color: var(--muted); }
+    .nav-links a:hover { color: #fff; }
+    .site-nav.scrolled .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: #fff; font-weight: 600; }
+    .site-nav.scrolled .nav-links a.active { color: var(--text); }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      background: var(--green-deep);
+      overflow: hidden;
+      padding: 9rem 1.5rem 5rem;
+      text-align: center;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 30% 50%, rgba(107,143,168,0.2), transparent 60%),
+        radial-gradient(ellipse 50% 50% at 80% 30%, rgba(231,188,110,0.08), transparent 55%);
+      pointer-events: none;
+    }
+
+    .stars { position: absolute; inset: 0; pointer-events: none; }
+
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      animation-name: twinkle;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      animation-duration: var(--dur, 4s);
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes twinkle {
+      0%, 100% {
+        opacity: var(--min-op, 0.03);
+        transform: scale(1);
+        box-shadow: none;
+      }
+      50% {
+        opacity: var(--max-op, 1);
+        transform: scale(var(--peak-scale, 1));
+        box-shadow: 0 0 var(--glow-r, 0px) var(--glow-s, 0px) rgba(var(--rgb), var(--glow-op, 0));
+      }
+    }
+
+    @keyframes flare {
+      0%, 78%, 100% {
+        opacity: var(--min-op, 0.02);
+        transform: scale(1);
+        box-shadow: none;
+      }
+      83% {
+        opacity: 1;
+        transform: scale(var(--peak-scale, 4));
+        box-shadow: 0 0 8px 3px rgba(var(--rgb), 0.75);
+      }
+      90% {
+        opacity: 0.08;
+        transform: scale(1);
+        box-shadow: none;
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      margin-bottom: 1.2rem;
+      padding: 0.3rem 0.85rem;
+      border: 1px solid rgba(107,143,168,0.5);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(180,210,230,0.85);
+    }
+
+    .hero h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      color: rgba(255,255,255,0.58);
+      font-size: 1.05rem;
+      max-width: 480px;
+      margin: 0 auto 2rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.65rem 1.3rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      border: 1px solid transparent;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-outline {
+      background: transparent;
+      color: rgba(255,255,255,0.8);
+      border-color: rgba(255,255,255,0.25);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.45);
+    }
+
+    /* ─── FILTER BAR ─── */
+    .filter-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .filter-inner {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-right: 0.4rem;
+    }
+
+    .filter-btn {
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      font-family: inherit;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--blue-pale);
+      border-color: var(--blue);
+      color: var(--blue-dark);
+    }
+
+    /* ─── GRID ─── */
+    .portfolio-section {
+      padding: 4rem 0 6rem;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    .portfolio-item {
+      display: flex;
+      flex-direction: column;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .portfolio-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 48px rgba(14,27,42,0.15);
+    }
+
+    /* Placeholder image area — replace src on <img> when you have files */
+    .portfolio-img {
+      aspect-ratio: 2 / 3;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .portfolio-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .portfolio-item:hover .portfolio-img img {
+      transform: scale(1.04);
+    }
+
+    /* Gradient placeholder shown when no image is present */
+    .portfolio-img .placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.25rem;
+    }
+
+    .placeholder-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .portfolio-info {
+      padding: 1.1rem 1.25rem 1.4rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .portfolio-tag {
+      display: inline-block;
+      margin-bottom: 0.6rem;
+      padding: 0.18rem 0.65rem;
+      background: var(--blue-pale);
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      align-self: flex-start;
+    }
+
+    .portfolio-info h3 {
+      font-family: Georgia, serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.35rem;
+      line-height: 1.25;
+    }
+
+    .portfolio-info p {
+      color: var(--muted);
+      font-size: 0.88rem;
+      flex-grow: 1;
+      margin-bottom: 0.9rem;
+    }
+
+    .portfolio-link {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--terracotta);
+      align-self: flex-start;
+    }
+
+    .portfolio-link:hover { text-decoration: underline; }
+
+    /* ─── CTA STRIP ─── */
+    .cta-strip {
+      background: var(--green-deep);
+      padding: 4rem 0;
+      text-align: center;
+    }
+
+    .cta-strip h2 {
+      font-family: Georgia, serif;
+      font-size: 1.9rem;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+
+    .cta-strip p {
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 2rem;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: var(--green-deep);
+      border-color: var(--gold);
+      font-weight: 700;
+    }
+
+    .btn-gold:hover { background: #d4a850; border-color: #d4a850; }
+
+    /* ─── FOOTER ─── */
+    .site-footer {
+      background: var(--green-mid);
+      color: rgba(255,255,255,0.55);
+      padding: 3rem 0;
+      font-size: 0.9rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-name {
+      font-family: Georgia, serif;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.85);
+      font-weight: 700;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a { color: rgba(255,255,255,0.5); transition: color 0.2s; }
+    .footer-links a:hover { color: rgba(255,255,255,0.9); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 860px) {
+      .portfolio-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 560px) {
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav" id="site-nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index-v3.html">Amy Steele</a>
+      <div class="nav-links">
+        <a href="index-v3.html#research">Research</a>
+        <a href="index-v3.html#code-data">Code &amp; Data</a>
+        <a href="portfolio.html" class="active">Design</a>
+        <a href="index-v3.html#cv">CV</a>
+        <a href="index-v3.html#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="stars" id="star-field" aria-hidden="true"></div>
+    <div class="hero-content">
+      <span class="hero-eyebrow">Print · Poster · Graphic Design</span>
+      <h1>Design &amp; Print Work</h1>
+      <p>Science-inspired graphics, astronomical posters, and independent print projects.</p>
+      <a class="btn btn-outline" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Visit the shop ↗</a>
+    </div>
+  </section>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <div class="container filter-inner">
+      <span class="filter-label">Filter</span>
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="poster">Posters</button>
+      <button class="filter-btn" data-filter="print">Print</button>
+      <button class="filter-btn" data-filter="illustration">Illustration</button>
+    </div>
+  </div>
+
+  <!-- PORTFOLIO GRID -->
+  <section class="portfolio-section">
+    <div class="container">
+      <div class="portfolio-grid" id="portfolio-grid">
+
+        <!--
+          TO ADD YOUR OWN IMAGES:
+          Replace the <div class="placeholder" ...> inside each .portfolio-img
+          with: <img src="your-filename.png" alt="Description" />
+          The placeholder gradient will disappear automatically.
+        -->
+
+        <article class="portfolio-item" data-category="poster">
+          <div class="portfolio-img">
+            <div class="placeholder" style="background: linear-gradient(135deg, #0e1b2a 0%, #1a3a5c 50%, #6b8fa8 100%);">
+              <span class="placeholder-label">Add image</span>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-tag">Poster</span>
+            <h3>Poster Title One</h3>
+            <p>Short description of this piece — theme, inspiration, or technique.</p>
+            <a class="portfolio-link" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Buy print →</a>
+          </div>
+        </article>
+
+        <article class="portfolio-item" data-category="poster">
+          <div class="portfolio-img">
+            <div class="placeholder" style="background: linear-gradient(135deg, #2e4035 0%, #7f9f7a 60%, #e7bc6e 100%);">
+              <span class="placeholder-label">Add image</span>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-tag">Poster</span>
+            <h3>Poster Title Two</h3>
+            <p>Short description of this piece — theme, inspiration, or technique.</p>
+            <a class="portfolio-link" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Buy print →</a>
+          </div>
+        </article>
+
+        <article class="portfolio-item" data-category="illustration">
+          <div class="portfolio-img">
+            <div class="placeholder" style="background: linear-gradient(135deg, #1b1030 0%, #3d2a5a 50%, #d88c74 100%);">
+              <span class="placeholder-label">Add image</span>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-tag">Illustration</span>
+            <h3>Illustration Title</h3>
+            <p>Short description of this piece — theme, inspiration, or technique.</p>
+            <a class="portfolio-link" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Buy print →</a>
+          </div>
+        </article>
+
+        <article class="portfolio-item" data-category="print">
+          <div class="portfolio-img">
+            <div class="placeholder" style="background: linear-gradient(135deg, #0e1b2a 0%, #3d6278 50%, #b8cfb4 100%);">
+              <span class="placeholder-label">Add image</span>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-tag">Print</span>
+            <h3>Print Title One</h3>
+            <p>Short description of this piece — theme, inspiration, or technique.</p>
+            <a class="portfolio-link" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Buy print →</a>
+          </div>
+        </article>
+
+        <article class="portfolio-item" data-category="poster">
+          <div class="portfolio-img">
+            <div class="placeholder" style="background: linear-gradient(135deg, #2a1a0e 0%, #78421e 50%, #e7bc6e 100%);">
+              <span class="placeholder-label">Add image</span>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-tag">Poster</span>
+            <h3>Poster Title Three</h3>
+            <p>Short description of this piece — theme, inspiration, or technique.</p>
+            <a class="portfolio-link" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Buy print →</a>
+          </div>
+        </article>
+
+        <article class="portfolio-item" data-category="illustration">
+          <div class="portfolio-img">
+            <div class="placeholder" style="background: linear-gradient(135deg, #0a1a18 0%, #1e4a42 55%, #7f9f7a 100%);">
+              <span class="placeholder-label">Add image</span>
+            </div>
+          </div>
+          <div class="portfolio-info">
+            <span class="portfolio-tag">Illustration</span>
+            <h3>Illustration Title Two</h3>
+            <p>Short description of this piece — theme, inspiration, or technique.</p>
+            <a class="portfolio-link" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Buy print →</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOP CTA -->
+  <div class="cta-strip">
+    <h2>See everything in the shop</h2>
+    <p>All prints and posters are available to order at aste-ya.com.</p>
+    <a class="btn btn-gold" href="https://aste-ya.com/" target="_blank" rel="noreferrer">Visit aste-ya.com ↗</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span class="footer-name">Amy Steele</span>
+      <nav class="footer-links">
+        <a href="mailto:your.email@example.com">Email</a>
+        <a href="#">GitHub</a>
+        <a href="index-v3.html#cv">CV</a>
+        <a href="https://steele.nimbusno.de/" target="_blank" rel="noreferrer">Database</a>
+        <a href="https://aste-ya.com/" target="_blank" rel="noreferrer">Shop</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll transition
+    const nav = document.getElementById('site-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // ── Procedural star field ──────────────────────────
+    (function buildStars(containerId, count) {
+      const field = document.getElementById(containerId);
+      if (!field) return;
+
+      const palette = [
+        '170,195,255',
+        '200,218,255',
+        '220,232,255',
+        '245,248,255',
+        '255,255,255',
+        '255,255,255',
+        '255,255,255',
+        '255,252,228',
+        '255,244,190',
+        '255,225,130',
+        '255,195,90',
+        '255,160,70',
+      ];
+
+      const fragment = document.createDocumentFragment();
+
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('div');
+        el.className = 'star';
+
+        const size      = Math.random() * 0.87 + 0.17;
+        const rgb       = palette[Math.floor(Math.random() * palette.length)];
+        const isFlare   = Math.random() < 0.07;
+        const isBright  = size > 0.55 || Math.random() < 0.25;
+        const peakScale = isBright ? (1.8 + Math.random() * 2.4).toFixed(1) : '1.1';
+        const glowR     = isBright ? `${(0.5 + Math.random() * 1.5).toFixed(1)}px` : '0px';
+        const glowS     = isBright ? `${(Math.random() * 0.5).toFixed(1)}px`      : '0px';
+        const glowOp    = isBright ? (0.4 + Math.random() * 0.5).toFixed(2)       : '0';
+
+        el.style.cssText = [
+          `width:${size}px`,
+          `height:${size}px`,
+          `top:${(Math.random() * 100).toFixed(2)}%`,
+          `left:${(Math.random() * 100).toFixed(2)}%`,
+          `background:rgb(${rgb})`,
+          `--rgb:${rgb}`,
+          `animation-name:${isFlare ? 'flare' : 'twinkle'}`,
+          `--dur:${isFlare
+            ? (22 + Math.random() * 26).toFixed(1)
+            : (4.0 + Math.random() * 9.0).toFixed(1)}s`,
+          `--delay:-${(Math.random() * 12).toFixed(1)}s`,
+          `--min-op:${(Math.random() * 0.04 + 0.01).toFixed(2)}`,
+          `--max-op:${(Math.random() * 0.2  + 0.80).toFixed(2)}`,
+          `--peak-scale:${peakScale}`,
+          `--glow-r:${glowR}`,
+          `--glow-s:${glowS}`,
+          `--glow-op:${glowOp}`,
+        ].join(';');
+
+        fragment.appendChild(el);
+      }
+      field.appendChild(fragment);
+    })('star-field', 180);
+
+    // Filter buttons
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const items = document.querySelectorAll('.portfolio-item');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        items.forEach(item => {
+          const show = filter === 'all' || item.dataset.category === filter;
+          item.style.display = show ? '' : 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
