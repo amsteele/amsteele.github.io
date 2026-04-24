@@ -492,12 +492,12 @@
       font-size: 1.1rem;
       color: rgba(255,255,255,0.85);
       font-weight: 700;
+    }
 
     .footer-copy {
       font-size: 0.78rem;
       opacity: 0.45;
       margin-top: 0.25rem;
-    }
     }
 
     .footer-links {
@@ -512,34 +512,95 @@
 
     .footer-links a:hover { color: rgba(255,255,255,0.9); }
 
+    /* ─── HAMBURGER ──────────────────────────────────── */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px 4px;
+      z-index: 60;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: rgba(255,255,255,0.85);
+      border-radius: 2px;
+      transition: background 0.3s ease, transform 0.25s ease, opacity 0.25s ease;
+      transform-origin: center;
+    }
+
+    .site-nav.scrolled .nav-toggle span { background: var(--text); }
+
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-mobile {
+      display: none;
+      flex-direction: column;
+      background: rgba(248, 242, 232, 0.97);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      padding: 0.4rem 0 0.75rem;
+    }
+
+    .nav-mobile.open { display: flex; }
+
+    .nav-mobile a {
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s ease;
+    }
+
+    .nav-mobile a:last-child { border-bottom: none; }
+    .nav-mobile a:hover { background: var(--surface-2); }
+
     /* ─── RESPONSIVE ──────────────────────────────────── */
     @media (max-width: 860px) {
+      /* About: photo left, bio right; facts full-width below */
       .about-inner {
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
+        grid-template-columns: 130px 1fr;
+        gap: 1.5rem 2rem;
       }
 
       .about-photo {
-        grid-column: 1 / -1;
+        grid-column: 1;
+        grid-row: 1;
         position: static;
-        max-width: 160px;
       }
 
-      .stats-inner {
-        gap: 2rem 3rem;
+      .about-bio {
+        grid-column: 2;
+        grid-row: 1;
       }
 
-      .work-item {
-        grid-template-columns: 2rem 1fr;
+      .about-facts {
+        grid-column: 1 / -1;
+        grid-row: 2;
       }
 
-      .work-tag { display: none; }
+      .stats-inner { gap: 2rem 3rem; }
+
+      .work-item { grid-template-columns: 2rem 1fr; }
+      .work-tag  { display: none; }
     }
 
     @media (max-width: 600px) {
-      .nav-links { display: none; }
+      .nav-links  { display: none; }
+      .nav-toggle { display: flex; }
 
       .hero h1 { font-size: 3rem; }
+
+      .about-inner { grid-template-columns: 90px 1fr; gap: 1rem 1.25rem; }
 
       .footer-inner { flex-direction: column; align-items: flex-start; }
     }
@@ -563,6 +624,17 @@
         <a href="pdfs/AmySteele_Resume_Web.pdf" target="_blank" rel="noreferrer">CV</a>
         <a href="#contact">Contact</a>
       </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-mobile" id="nav-mobile">
+      <a href="#research">Research</a>
+      <a href="#code-data">Code &amp; Data</a>
+      <a href="https://steele.nimbusno.de/" target="_blank" rel="noreferrer">Database</a>
+      <a href="portfolio.html">Design</a>
+      <a href="pdfs/AmySteele_Resume_Web.pdf" target="_blank" rel="noreferrer">CV</a>
+      <a href="#contact">Contact</a>
     </div>
   </nav>
 
@@ -703,7 +775,7 @@
         <p class="footer-copy">&copy; <span class="footer-year"></span> Amy Steele</p>
       </div>
       <nav class="footer-links" aria-label="Footer links">
-        <a href="mailto:your.email@example.com">Email</a>
+        <a href="mailto:SNrefsdal@proton.me">Email</a>
         <a href="#">GitHub</a>
         <a href="pdfs/AmySteele_Resume_Web.pdf" target="_blank" rel="noreferrer">CV</a>
         <a href="https://steele.nimbusno.de/" target="_blank" rel="noreferrer">Database</a>
@@ -718,6 +790,23 @@
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 60);
     }, { passive: true });
+
+    // ── Hamburger menu ────────────────────────────────
+    const navToggle = document.getElementById('nav-toggle');
+    const navMobile = document.getElementById('nav-mobile');
+    navToggle.addEventListener('click', () => {
+      const open = navToggle.classList.toggle('open');
+      navMobile.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', open);
+    });
+    // Close on mobile link tap
+    navMobile.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navToggle.classList.remove('open');
+        navMobile.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
 
     // ── Procedural star field ──────────────────────────
     (function buildStars(containerId, count) {
