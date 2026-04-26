@@ -565,7 +565,6 @@
         <a href="https://steele.nimbusno.de/" target="_blank" rel="noreferrer">Database</a>
         <a href="portfolio.html">Design</a>
         <a href="pdfs/AmySteele_Resume_Web.pdf" target="_blank" rel="noreferrer">CV</a>
-        <a href="index.html#contact">Contact</a>
       </div>
       <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -577,7 +576,6 @@
       <a href="https://steele.nimbusno.de/" target="_blank" rel="noreferrer">Database</a>
       <a href="portfolio.html">Design</a>
       <a href="pdfs/AmySteele_Resume_Web.pdf" target="_blank" rel="noreferrer">CV</a>
-      <a href="index.html#contact">Contact</a>
     </div>
   </nav>
 
@@ -586,8 +584,8 @@
     <div class="stars" id="star-field" aria-hidden="true"></div>
     <div class="hero-content">
       <span class="hero-eyebrow">Code &amp; Data</span>
-      <h1>Computational tools for scientific questions</h1>
-      <p>Python workflows, reproducible analysis, and public-facing data tools built around real observational problems</p>
+      <h1>Code and data tools</h1>
+      <p>Most of this started because I needed it for my research. Some of it became its own thing.</p>
       <div class="hero-ctas">
         <a class="btn btn-primary" href="https://github.com/amsteele" target="_blank" rel="noreferrer">View GitHub</a>
         <a class="btn btn-outline" href="https://steele.nimbusno.de/" target="_blank" rel="noreferrer">Visit Database</a>
@@ -600,19 +598,19 @@
     <div class="container stats-inner">
       <div class="stat">
         <span class="stat-num">Python</span>
-        <span class="stat-desc">Pipelines, analysis, and visualization for scientific data</span>
+        <span class="stat-desc">analysis, pipelines, and the occasional ugly script that just works</span>
       </div>
       <div class="stat">
         <span class="stat-num">SQL + Web</span>
-        <span class="stat-desc">Structured searchable tools and browser-based interfaces</span>
+        <span class="stat-desc">structured databases and browser-based interfaces</span>
       </div>
       <div class="stat">
         <span class="stat-num">Research-grade</span>
-        <span class="stat-desc">Built from observational and modeling workflows, not toy examples</span>
+        <span class="stat-desc">built to answer questions I actually had</span>
       </div>
       <div class="stat">
         <span class="stat-num">Public-facing</span>
-        <span class="stat-desc">Projects designed to be explored, searched, and reused</span>
+        <span class="stat-desc">meant to be used, not just reviewed</span>
       </div>
     </div>
   </div>
@@ -622,7 +620,7 @@
     <div class="container">
       <div class="section-header">
         <h2>Selected projects</h2>
-        <p>Orbital analysis, photometry, geospatial comparison, and searchable scientific data — each showing a different part of the work.</p>
+        <p>A few things I built:</p>
       </div>
       <div class="project-grid">
 
@@ -631,7 +629,7 @@
             <h3>Satellite Conjunction Risk Analysis</h3>
             <span class="project-type">Analysis Pipeline</span>
           </div>
-          <p>A reproducible pipeline for quantifying and visualizing the risk of close satellite approaches in low Earth orbit using public orbital data. Framed around ~10,000 satellites, focused on extracting operationally meaningful summaries from large trajectory sets.</p>
+          <p>A pipeline for analyzing close approach risk between satellites in low Earth orbit, using public TLE data. Works with ~10,000 satellites and produces summary statistics for high-risk pairs.</p>
           <div class="tag-list">
             <span class="tag">Python</span>
             <span class="tag">Jupyter</span>
@@ -648,7 +646,7 @@
             <h3>Relative Photometry Pipeline</h3>
             <span class="project-type">Astronomy Workflow</span>
           </div>
-          <p>A modular Python pipeline for extracting relative photometric light curves from ground-based CCD time-series observations, including calibration, image alignment, WCS-based source localization, aperture photometry, and light-curve output.</p>
+          <p>A modular pipeline for extracting relative photometry from ground-based CCD images — calibration, alignment, WCS-based source matching, aperture photometry, and light curve output.</p>
           <div class="tag-list">
             <span class="tag">Python</span>
             <span class="tag">Astropy</span>
@@ -665,7 +663,7 @@
             <h3>Nevada Dark Sky Comparison</h3>
             <span class="project-type">Data App</span>
           </div>
-          <p>Compares ground-based sky brightness measurements from a Unihedron SQM-L device against NASA VIIRS Black Marble nighttime radiance data. Interpolates field measurements, maps local variation, and compares on-the-ground darkness to satellite-derived pixels.</p>
+          <p>Compares SQM-L sky brightness readings from the field against NASA VIIRS satellite data. Maps local variation and puts ground-truth measurements alongside satellite-derived estimates.</p>
           <div class="tag-list">
             <span class="tag">Python</span>
             <span class="tag">Geospatial analysis</span>
@@ -682,7 +680,7 @@
             <h3>Polluted White Dwarf Database</h3>
             <span class="project-type">Searchable Tool</span>
           </div>
-          <p>A browser-based searchable resource for exploring model parameters related to pollution around white dwarfs. Exposes scientific model choices through a structured interface so users can query and inspect results directly.</p>
+          <p>A searchable database of model parameters for polluted white dwarf systems. Look up stars by name, filter by model choices, and inspect fit results directly in the browser.</p>
           <div class="tag-list">
             <span class="tag">Scientific database</span>
             <span class="tag">Search interface</span>
@@ -704,7 +702,7 @@
     <div class="container">
       <div class="section-header">
         <h2>Approach and strengths</h2>
-        <p>The most useful pattern in my work is translating research logic into maintainable code and interfaces that others can actually use.</p>
+        <p>I write code that I'll still understand in six months, and that someone else could pick up without a walkthrough.</p>
       </div>
       <div class="split-grid">
         <div class="skill-card">
@@ -737,7 +735,7 @@
       <div class="callout-card">
         <div>
           <h2>GitHub profile</h2>
-          <p>My GitHub includes repositories for satellite conjunction analysis, time-domain photometry, dark sky comparison work, Stellarium scripts for night-sky demonstrations, and the site itself. It is the best place to see the current shape of my technical work and how I organize projects.</p>
+          <p>My GitHub has the satellite and photometry projects above, plus Stellarium scripts I use for public nights, this site, and a few other things. Most repos have a README that explains what the code does and why I wrote it.</p>
         </div>
         <div class="callout-ctas">
           <a class="btn btn-gold" href="https://github.com/amsteele" target="_blank" rel="noreferrer">Open GitHub ↗</a>

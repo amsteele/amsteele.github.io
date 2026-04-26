@@ -602,7 +602,6 @@
         <a href="https://steele.nimbusno.de/" target="_blank" rel="noreferrer">Database</a>
         <a href="portfolio.html">Design</a>
         <a href="pdfs/AmySteele_Resume_Web.pdf" target="_blank" rel="noreferrer">CV</a>
-        <a href="index.html#contact">Contact</a>
       </div>
       <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -614,7 +613,6 @@
       <a href="https://steele.nimbusno.de/" target="_blank" rel="noreferrer">Database</a>
       <a href="portfolio.html">Design</a>
       <a href="pdfs/AmySteele_Resume_Web.pdf" target="_blank" rel="noreferrer">CV</a>
-      <a href="index.html#contact">Contact</a>
     </div>
   </nav>
 
@@ -624,7 +622,7 @@
     <div class="hero-content">
       <span class="hero-eyebrow">Scientific Research</span>
       <h1>Planetary remnants &amp; white dwarf atmospheres</h1>
-      <p>Using spectroscopy, disk modeling, and computational tools to study what survives when planetary systems die</p>
+      <p>What's left when a planetary system dies? I study the debris that falls onto white dwarfs to find out.</p>
       <div class="hero-ctas">
         <a class="btn btn-primary" href="#themes">Research themes</a>
         <a class="btn btn-outline" href="#methods">Methods</a>
@@ -638,10 +636,10 @@
       <div class="intro-bio">
         <h2>The research</h2>
         <p>
-          My research focuses on polluted white dwarfs and the circumstellar material that reveals the composition and evolution of planetary systems after the main-sequence lifetime of their host stars.
+          I work on polluted white dwarfs — stars that have accreted rocky planetary material, leaving chemical traces in their atmospheres and sometimes maintaining dusty or gaseous disks in orbit.
         </p>
         <p>
-          I approach these systems as a form of cosmic forensics: using spectroscopy, disk modeling, and numerical workflows to infer the physical and chemical history of material left behind by disrupted planetary bodies.
+          My tools are spectroscopy, radiative transfer modeling, and photometric time series. A big part of the work is building and running model grids large enough to actually constrain what I'm seeing.
         </p>
       </div>
       <div>
@@ -670,7 +668,7 @@
     <div class="container">
       <div class="section-header">
         <h2>Research themes</h2>
-        <p>The science approached from three angles — the stars, the material around them, and what that material tells us about planetary history.</p>
+        <p>Three questions that come up constantly in my work:</p>
       </div>
       <figure style="margin-bottom:2rem;">
         <img
@@ -688,21 +686,21 @@
           <span class="theme-num">01</span>
           <div class="theme-body">
             <h3>Polluted white dwarfs</h3>
-            <p>White dwarf atmospheres can preserve signatures of accreted planetary material. I use these systems as chemical probes of disrupted exoplanetesimals and planetary debris.</p>
+            <p>A white dwarf's atmosphere is chemically pure by default — when metals show up, they got there somehow. I study those stars to figure out what fell in and what it tells us about the parent body.</p>
           </div>
         </li>
         <li class="theme-item">
           <span class="theme-num">02</span>
           <div class="theme-body">
             <h3>Circumstellar disks</h3>
-            <p>Dust and gas disks around white dwarfs connect observed spectra to the physical structure, temperature, and composition of material close to the star.</p>
+            <p>Some of these stars also have detectable disks — dust and sometimes gas orbiting close in. Modeling that material gives additional constraints on composition and the disruption history.</p>
           </div>
         </li>
         <li class="theme-item">
           <span class="theme-num">03</span>
           <div class="theme-body">
             <h3>Cosmic forensics</h3>
-            <p>Each polluted white dwarf system is a partial record of a planetary system's history. The scientific challenge is extracting that record from incomplete and complex data.</p>
+            <p>The data are never complete and the models involve a lot of assumptions. The interesting part is figuring out what you can actually trust.</p>
           </div>
         </li>
       </ul>
@@ -714,7 +712,7 @@
     <div class="container">
       <div class="section-header">
         <h2>Methods</h2>
-        <p>Computational and observational, with emphasis on turning physical questions into modelable, testable workflows.</p>
+        <p>How I actually do the work:</p>
       </div>
       <div class="method-grid">
         <article class="method-card">
@@ -722,28 +720,28 @@
             <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
           </div>
           <h3>Spectroscopy</h3>
-          <p>Analysis and interpretation of spectral features encoding chemical, thermal, and dynamical information.</p>
+          <p>Reading spectra to identify and measure absorption features — the main way I get composition and temperature information from the stars.</p>
         </article>
         <article class="method-card">
           <div class="method-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
           </div>
           <h3>Disk modeling</h3>
-          <p>Modeling circumstellar material to connect composition, temperature, geometry, and radiative behavior.</p>
+          <p>Building models of the dust and gas around white dwarfs and comparing them to observed infrared and optical emission.</p>
         </article>
         <article class="method-card">
           <div class="method-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
           </div>
           <h3>Parameter exploration</h3>
-          <p>Systematic model generation and comparison across large parameter spaces to understand degeneracies and constraints.</p>
+          <p>Running large grids of models to map out which parameters are well-constrained by the data and which aren't.</p>
         </article>
         <article class="method-card">
           <div class="method-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
           </div>
           <h3>Scientific software</h3>
-          <p>Python, shell workflows, databases, and visualization tools for reproducible, searchable research analysis.</p>
+          <p>Python pipelines, databases, and visualization tools that make long-running analyses easier to track and reproduce.</p>
         </article>
       </div>
     </div>
@@ -753,28 +751,28 @@
   <section class="page-section">
     <div class="container">
       <div class="section-header">
-        <h2>Research as technical training</h2>
-        <p>Why the research background transfers to data and software roles.</p>
+        <h2>Skills that carry over</h2>
+        <p>What research actually trains you to do:</p>
       </div>
       <div class="split-grid">
         <div class="skill-card">
           <h3>Scientific skills</h3>
           <ul>
-            <li>Working with incomplete, noisy, and physically constrained data</li>
-            <li>Connecting observations to models and evaluating competing interpretations</li>
-            <li>Designing workflows for computationally expensive model comparisons</li>
-            <li>Communicating uncertainty clearly across technical and nontechnical contexts</li>
-            <li>Building analysis around evidence rather than convenient assumptions</li>
+            <li>Working with noisy, incomplete data that requires physical judgment</li>
+            <li>Comparing observations to models without over-interpreting the fit</li>
+            <li>Setting up slow, expensive computations so they can actually finish</li>
+            <li>Explaining what you know, what you don't, and why it matters</li>
+            <li>Sitting with ambiguity long enough to get an honest answer</li>
           </ul>
         </div>
         <div class="skill-card">
           <h3>Technical skills</h3>
           <ul>
-            <li>Python-based scientific computing and automation</li>
-            <li>Large model grids and structured parameter exploration</li>
-            <li>Data cleaning, transformation, visualization, and interpretation</li>
-            <li>SQL-backed organization of model outputs and metadata</li>
-            <li>Public-facing tools that make complex results easier to search and inspect</li>
+            <li>Python for scientific computing and analysis automation</li>
+            <li>Running and organizing large model grids</li>
+            <li>Data cleaning, transformation, and visualization</li>
+            <li>SQL for keeping track of model outputs and metadata</li>
+            <li>Building tools that make results easier to search and inspect</li>
           </ul>
         </div>
       </div>
@@ -811,8 +809,8 @@
         </div>
         <div class="callout-card">
           <h3>How I describe the work</h3>
-          <p>I study planetary systems after stellar death by treating polluted white dwarfs as cosmic mass spectrometers. Their atmospheres and surrounding disks offer clues about the composition of rocky material beyond the Solar System.</p>
-          <p>That research has also shaped how I build technical systems: I am used to ambiguous data, long-running computations, messy intermediate products, and the need to make results traceable, searchable, and interpretable.</p>
+          <p>I study planetary systems after stellar death. Polluted white dwarfs act like natural mass spectrometers — their atmospheres record the chemistry of whatever fell in, and the surrounding disks preserve information about how it got there.</p>
+          <p>The research has also shaped how I write code: you learn to be patient with slow jobs, careful about what you're actually measuring, and thoughtful about what you'll want to look up later.</p>
           <div class="link-row">
             <a class="text-link" href="https://steele.nimbusno.de/" target="_blank" rel="noreferrer">Explore database →</a>
             <a class="text-link" href="https://github.com/amsteele" target="_blank" rel="noreferrer">GitHub →</a>
